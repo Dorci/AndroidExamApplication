@@ -30,6 +30,7 @@ public class NewAccountFragment extends Fragment {
     TextInputLayout password;
     Button createAccount;
     private FirebaseAuth mAuth;
+
     public NewAccountFragment() {
         // Required empty public constructor
     }
@@ -54,34 +55,31 @@ public class NewAccountFragment extends Fragment {
                 String emailText = email.getEditText().getText().toString();
                 String passwordText = password.getEditText().getText().toString();
                 if (!emailText.equals("") && !usernameText.equals("") && !passwordText.equals("")) {
-                mAuth.createUserWithEmailAndPassword(email.getEditText().getText().toString(), password.getEditText().getText().toString()).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            LoginFragment loginFragment = LoginFragment.newInstance();
-                            FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    mAuth.createUserWithEmailAndPassword(email.getEditText().getText().toString(), password.getEditText().getText().toString()).addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                LoginFragment loginFragment = LoginFragment.newInstance();
+                                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
 
-                            transaction.replace(R.id.fragmentReplacer, loginFragment);
-                            transaction.commit();
-                        } else {
-                            task.getException();
-                            Toast.makeText(getActivity(), "Authentication failed." +
-                                            "Exception : " + task.getException().toString(),
-                                    Toast.LENGTH_SHORT).show();
+                                transaction.replace(R.id.fragmentReplacer, loginFragment);
+                                transaction.commit();
+                            } else {
+                                task.getException();
+                                Toast.makeText(getActivity(), "Authentication failed." +
+                                                "Exception : " + task.getException().toString(),
+                                        Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
-            }
-                else
-                {
+                    });
+                } else {
                     Toast.makeText(getActivity(), R.string.empty_fields,
                             Toast.LENGTH_SHORT).show();
                 }
-        }
+            }
 
 
-
-    });
+        });
         return rootView;
-}
+    }
 }

@@ -4,7 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import om.example.android.androidproject.utility.RandomColourGenerator;
+
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,16 +13,15 @@ import java.util.ArrayList;
 
 import om.example.android.androidproject.R;
 import om.example.android.androidproject.model.Poem;
+import om.example.android.androidproject.utility.RandomColourGenerator;
 
-public class PoemsRecyclerAdapter extends RecyclerView.Adapter<PoemsRecyclerAdapter.ViewHolder>
-{
+public class PoemsRecyclerAdapter extends RecyclerView.Adapter<PoemsRecyclerAdapter.ViewHolder> {
     final private OnPoemClickListener poemClickListener;
 
     private ArrayList<Poem> poems;
 
-    public PoemsRecyclerAdapter( OnPoemClickListener listener)
-    {
-        this.poems= new ArrayList<>();
+    public PoemsRecyclerAdapter(OnPoemClickListener listener) {
+        this.poems = new ArrayList<>();
         this.poemClickListener = listener;
     }
 
@@ -48,10 +47,14 @@ public class PoemsRecyclerAdapter extends RecyclerView.Adapter<PoemsRecyclerAdap
 
     @Override
     public int getItemCount() {
-        return  poems.size();
+        return poems.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public interface OnPoemClickListener {
+        void onPoemClick(int clickedPoemIndex);
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView poemText;
         TextView author;
         ConstraintLayout background;
@@ -70,10 +73,6 @@ public class PoemsRecyclerAdapter extends RecyclerView.Adapter<PoemsRecyclerAdap
         public void onClick(View v) {
             poemClickListener.onPoemClick(getAdapterPosition());
         }
-    }
-
-    public interface OnPoemClickListener {
-        void onPoemClick(int clickedPoemIndex);
     }
 
 }

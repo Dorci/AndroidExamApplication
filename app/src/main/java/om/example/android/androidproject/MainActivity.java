@@ -14,9 +14,8 @@ import om.example.android.androidproject.view.BaseLayoutFragment;
 import om.example.android.androidproject.view.LoginFragment;
 
 public class MainActivity extends AppCompatActivity {
-    private FirebaseAuth mAuth;
     private static final String TAG = "MainActivity";
-
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +36,10 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
-            Log.e(TAG, "onStart: "+currentUser.getEmail() );
+            Log.e(TAG, "onStart: " + currentUser.getEmail());
             transaction.replace(R.id.fragmentReplacer, baseLayoutFragment);
-            transaction.replace(R.id.base_frame_layout,allPoemsFragment);
-             setTitle("All Poems");
+            transaction.replace(R.id.base_frame_layout, allPoemsFragment);
+            setTitle("All Poems");
         } else {
             transaction.replace(R.id.fragmentReplacer, loginFragment);
         }

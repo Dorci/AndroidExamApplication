@@ -16,48 +16,29 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PoemDAO
-{
+public class PoemDAO {
     private static final String TAG = "PoemDAO";
-    private MutableLiveData<ArrayList<Poem>> allPoems;
     private static PoemDAO instance;
+    private MutableLiveData<ArrayList<Poem>> allPoems;
 
-    private PoemDAO()
-    {
+    private PoemDAO() {
 
         allPoems = new MutableLiveData<>();
-//        Poem poem1 = new Poem("Some people are going to love you like you are a pond, and others are going to love you like you are a river, but you are an ocean, and you should never settle for anyone who loves you for anything less than that.","Nikita Gill");
-//        Poem poem2 = new Poem("Some people are going to love you like you are a pond, and others are going to love you like you are a river, but you are an ocean, and you should never settle for anyone who loves you for anything less than that.","Nikita Gill");
-//        Poem poem3 = new Poem("Some people are going to love you like you are a pond, and others are going to love you like you are a river, but you are an ocean, and you should never settle for anyone who loves you for anything less than that.","Nikita Gill");
-//        Poem poem4 = new Poem("Some people are going to love you like you are a pond, and others are going to love you like you are a river, but you are an ocean, and you should never settle for anyone who loves you for anything less than that.","Nikita Gill");
-//        Poem poem5 = new Poem("Some people are going to love you like you are a pond, and others are going to love you like you are a river, but you are an ocean, and you should never settle for anyone who loves you for anything less than that.","Nikita Gill");
-//        ArrayList<Poem> poems = new ArrayList<>();
-//        poems.add(poem1);
-//        poems.add(poem2);
-//        poems.add(poem3);
-//        poems.add(poem4);
-//        poems.add(poem5);
-//
-//        allPoems.setValue(poems);
-
     }
 
-    public static PoemDAO getInstance()
-    {
-        if(instance == null)
-        {
+    public static PoemDAO getInstance() {
+        if (instance == null) {
             instance = new PoemDAO();
         }
         return instance;
     }
 
-    public LiveData<ArrayList<Poem>> getAllPoems()
-    {
+    public LiveData<ArrayList<Poem>> getAllPoems() {
         requestForPoem("Shakespeare");
         return allPoems;
     }
-    public void insert(Poem poem)
-    {
+
+    public void insert(Poem poem) {
         ArrayList<Poem> currentPoems = allPoems.getValue();
         currentPoems.add(poem);
         allPoems.setValue(currentPoems);
@@ -68,23 +49,22 @@ public class PoemDAO
         return allPoems.getValue().get(index);
     }
 
-    public void requestForPoem(String name)
-    {
+    public void requestForPoem(String name) {
         PoemApi poemApi = ServiceGenerator.getPoemApi();
         Call<List<PoemResponse>> call = poemApi.getPoemByAuthor(name);
         call.enqueue(new Callback<List<PoemResponse>>() {
             @Override
             public void onResponse(Call<List<PoemResponse>> call, Response<List<PoemResponse>> response) {
                 Log.i(TAG, "onResponse: Response received");
-                Log.i(TAG, "onResponse: "+response.body());
-                // Create empty arralist of poems
+                Log.i(TAG, "onResponse: " + response.body());
+                // Create empty arraylist of poems
                 ArrayList<Poem> poems = new ArrayList<>();
 
                 //loop through all poems from response
-                //extract poem from poem rsponse
+                //extract poem from poem response
                 //add poem to empty arraylist
 
-                for (PoemResponse poemResponse:response.body()) {
+                for (PoemResponse poemResponse : response.body()) {
                     poems.add(poemResponse.getPoem());
                 }
 

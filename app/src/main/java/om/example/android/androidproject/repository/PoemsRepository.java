@@ -7,32 +7,26 @@ import java.util.ArrayList;
 import om.example.android.androidproject.dao.PoemDAO;
 import om.example.android.androidproject.model.Poem;
 
-public class PoemsRepository
-{
-    private PoemDAO poemDAO;
+public class PoemsRepository {
     private static PoemsRepository instance;
+    private PoemDAO poemDAO;
 
-    public PoemsRepository()
-    {
+    public PoemsRepository() {
         poemDAO = PoemDAO.getInstance();
     }
 
-    public static  PoemsRepository getInstance()
-    {
-        if(instance == null)
-        {
+    public static PoemsRepository getInstance() {
+        if (instance == null) {
             instance = new PoemsRepository();
         }
         return instance;
     }
 
-    public LiveData<ArrayList<Poem>> getAllPoems()
-    {
+    public LiveData<ArrayList<Poem>> getAllPoems() {
         return poemDAO.getAllPoems();
     }
 
-    public void insert(Poem poem)
-    {
+    public void insert(Poem poem) {
         poemDAO.insert(poem);
     }
 

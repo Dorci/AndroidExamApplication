@@ -1,6 +1,10 @@
 package om.example.android.androidproject.view;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -9,35 +13,29 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 
 import om.example.android.androidproject.R;
 import om.example.android.androidproject.adapters.PoemsRecyclerAdapter;
 import om.example.android.androidproject.model.Poem;
-
 import om.example.android.androidproject.viewModel.AllPoemsFragmentViewModel;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AllPoemsFragment extends Fragment implements PoemsRecyclerAdapter.OnPoemClickListener{
+public class AllPoemsFragment extends Fragment implements PoemsRecyclerAdapter.OnPoemClickListener {
+    public static String POEM_INDEX = "Poem_Index";
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private AllPoemsFragmentViewModel allPoemsFragmentViewModel;
-    public static String POEM_INDEX = "Poem_Index";
-
     private PoemsRecyclerAdapter poemsRecyclerAdapter;
 
 
     public AllPoemsFragment() {
         // Required empty public constructor
     }
+
     public static AllPoemsFragment newInstance() {
         return new AllPoemsFragment();
     }
@@ -46,7 +44,7 @@ public class AllPoemsFragment extends Fragment implements PoemsRecyclerAdapter.O
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View root  = inflater.inflate(R.layout.fragment_all_poems, container, false);
+        View root = inflater.inflate(R.layout.fragment_all_poems, container, false);
 
         recyclerView = root.findViewById(R.id.recycler_PoemOverView);
         recyclerView.setHasFixedSize(true);
@@ -71,8 +69,6 @@ public class AllPoemsFragment extends Fragment implements PoemsRecyclerAdapter.O
 
     @Override
     public void onPoemClick(int clickedPoemIndex) {
-        Poem poem = allPoemsFragmentViewModel.getAllPoems().getValue().get(clickedPoemIndex);
-        Toast.makeText(getContext(), " Clicked " + clickedPoemIndex, Toast.LENGTH_SHORT).show();
         Fragment fragment = new SinglePoemFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(POEM_INDEX, clickedPoemIndex);

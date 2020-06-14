@@ -4,7 +4,6 @@ import android.app.Application;
 import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -37,8 +36,8 @@ public class SinglePoemFragmentViewModel extends AndroidViewModel {
         UserLikes userLikes = userLikesRepository.getUserLikesLiveData(userId);
 
         // If object is null, create new UserLikes with value 0 and insert to database
-        if (userLikes == null){
-            userLikes = new UserLikes(userId,0 );
+        if (userLikes == null) {
+            userLikes = new UserLikes(userId, 0);
         }
 
         // Get current amount of likes

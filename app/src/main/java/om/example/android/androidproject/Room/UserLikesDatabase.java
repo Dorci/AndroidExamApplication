@@ -11,15 +11,10 @@ import java.util.concurrent.Executors;
 
 @Database(entities = {UserLikes.class}, version = 4, exportSchema = false)
 public abstract class UserLikesDatabase extends RoomDatabase {
-    private static UserLikesDatabase instance;
-
-    public abstract UserLikesDAO userLikesDAO();
-
     private static final int NUMBER_OF_THREADS = 4;
-
     public static final ExecutorService databaseWriterExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-
+    private static UserLikesDatabase instance;
 
     public static synchronized UserLikesDatabase getInstance(Context context) {
         if (instance == null) {
@@ -27,4 +22,6 @@ public abstract class UserLikesDatabase extends RoomDatabase {
         }
         return instance;
     }
+
+    public abstract UserLikesDAO userLikesDAO();
 }

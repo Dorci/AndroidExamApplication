@@ -1,4 +1,5 @@
 package om.example.android.androidproject.utility;
+
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 

@@ -1,38 +1,33 @@
 package om.example.android.androidproject.view;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import om.example.android.androidproject.R;
-import om.example.android.androidproject.viewModel.SinglePoemFragmentViewModel;
-import om.example.android.androidproject.utility.RandomColourGenerator;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
-import static android.content.Context.MODE_PRIVATE;
+import om.example.android.androidproject.R;
+import om.example.android.androidproject.utility.RandomColourGenerator;
+import om.example.android.androidproject.viewModel.SinglePoemFragmentViewModel;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class SinglePoemFragment extends Fragment {
+    public static String POEM_LIKES = "Poem_Likes";
     TextView singlePoemText;
     TextView singlePoemAuthor;
     SinglePoemFragmentViewModel singlePoemFragmentViewModel;
     RandomColourGenerator randomColourGenerator = new RandomColourGenerator();
     ConstraintLayout singlePoemConstraintLayout;
     Button likeButton;
-    public static String POEM_LIKES = "Poem_Likes";
-
-    int likes =0;
+    int likes = 0;
 
     public SinglePoemFragment() {
         // Required empty public constructor
@@ -42,7 +37,7 @@ public class SinglePoemFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root  = inflater.inflate(R.layout.fragment_single_poem, container, false);
+        View root = inflater.inflate(R.layout.fragment_single_poem, container, false);
         singlePoemFragmentViewModel = new ViewModelProvider(this).get(SinglePoemFragmentViewModel.class);
 
         likeButton = root.findViewById(R.id.likeButton);
@@ -60,12 +55,6 @@ public class SinglePoemFragment extends Fragment {
             likeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-//                    SharedPreferences prefs = getActivity().getSharedPreferences(POEM_LIKES, MODE_PRIVATE);
-//                    int currentNumberOfLikes = prefs.getInt("likes",0);
-//                    currentNumberOfLikes++;
-//                    SharedPreferences.Editor editor = prefs.edit();
-//                    editor.putInt("likes", currentNumberOfLikes);
-//                    editor.apply();
                     singlePoemFragmentViewModel.updateNewUserLikes();
                 }
             });
